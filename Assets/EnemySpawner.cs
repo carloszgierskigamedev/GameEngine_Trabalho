@@ -30,9 +30,9 @@ public class EnemySpawner : MonoBehaviour
         while(true)
         {
         
-            spawnPointX = Random.Range(-44, 38);
+            spawnPointX = Random.Range(-323, 301);
             spawnPointY = 3.15f;
-            spawnPointZ = Random.Range(21, 87);
+            spawnPointZ = Random.Range(945, -271);
             spawnPosition = new Vector3(spawnPointX, spawnPointY, spawnPointZ);
 
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity); 
