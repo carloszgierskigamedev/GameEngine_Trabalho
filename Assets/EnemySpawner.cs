@@ -1,25 +1,76 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private float spawnTime = 0f;
     [SerializeField] private float spawnStart = 0f;
+    [SerializeField] private int waveOneQuantity = 5;
+    [SerializeField] private int waveTwoQuantity = 10;
+    [SerializeField] private int waveThreeQuantity = 15;
+    [SerializeField] private int waveFourQuantity = 20;
+    [SerializeField] private int waveFiveQuantity = 25;
     private float spawnPointX;
     private float spawnPointY;
     private float spawnPointZ;
     private Vector3 spawnPosition;
+    private SnakeHealth snakeHealth;
+    private Collider[] collider;
+    private NavMeshAgent navMeshAgent;
+
 
     void Awake()
     {
-        StartCoroutine(Spawn());
+        //Wave 1
+        WaveStarter(waveOneQuantity);
+        snakeHealth = enemyPrefab.GetComponent<SnakeHealth>();
+        navMeshAgent = enemyPrefab.GetComponent<NavMeshAgent>();
+        //collider = enemyPrefab.GetComponent<Collider>();
     }
 
     void Update()
     {
+        if (snakeHealth.Killed == 5)
+        {
+            WaveStarter(waveTwoQuantity);
+        }
+        if (snakeHealth.Killed == 15)
+        {
+            WaveStarter(waveThreeQuantity);
+        }
+        if (snakeHealth.Killed == 30)
+        {
+            WaveStarter(waveFourQuantity);
+        }
+        if (snakeHealth.Killed == 50)
+        {
+            WaveStarter(waveFiveQuantity);
+        }
+        if (snakeHealth.Killed == 75)
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        spawnPointX = Random.Range(-323, 301);
+        spawnPointY = -30f;
+        spawnPointZ = Random.Range(945, -271);
+        spawnPosition = new Vector3(spawnPointX, spawnPointY, spawnPointZ);
+        collider = Physics.OverlapSphere(spawnPosition, 20f);
         
+        if (collider.Length == 0)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        }
+        else 
+        {
+            SpawnEnemy();
+        }
     }
 
     IEnumerator Spawn()
@@ -27,17 +78,14 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(spawnStart);
 
-        while(true)
+        SpawnEnemy();
+    }
+
+    private void WaveStarter(int enemyQuantity)
+    {
+        for(int i = 0; i < enemyQuantity; i++)
         {
-        
-            spawnPointX = Random.Range(-323, 301);
-            spawnPointY = 3.15f;
-            spawnPointZ = Random.Range(945, -271);
-            spawnPosition = new Vector3(spawnPointX, spawnPointY, spawnPointZ);
-
-            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity); 
-            yield return new WaitForSeconds(spawnTime);
-
+            StartCoroutine(Spawn());
         }
     }
 }

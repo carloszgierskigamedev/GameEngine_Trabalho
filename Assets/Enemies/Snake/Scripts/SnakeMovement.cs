@@ -15,6 +15,7 @@ public class SnakeMovement : MonoBehaviour
 
     private void AggroDetection_OnAggro(Transform target)
     {
+        navMeshAgent.Warp(transform.position);
         navMeshAgent.SetDestination(target.position);
     }
 }

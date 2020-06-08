@@ -4,13 +4,14 @@ public class SnakeHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 4;
     private int currentHealth;
-    // Start is called before the first frame update
+    static private int s_Killed = 0;
+    public int Killed { get { return s_Killed; } set { s_Killed = value; }}
+    
     void Awake()
     {
         currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -22,7 +23,9 @@ public class SnakeHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die(); 
+            s_Killed++;
+            Debug.Log("Matou: " + s_Killed);
+            Die();
         }
     }
 
