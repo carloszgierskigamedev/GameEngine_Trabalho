@@ -58,17 +58,19 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         spawnPointX = Random.Range(-323, 301);
-        spawnPointY = -30f;
+        spawnPointY = -54f;
         spawnPointZ = Random.Range(945, -271);
         spawnPosition = new Vector3(spawnPointX, spawnPointY, spawnPointZ);
-        collider = Physics.OverlapSphere(spawnPosition, 20f);
+        collider = Physics.OverlapSphere(spawnPosition, 2f);
         
-        if (collider.Length == 0)
+        if (collider.Length <= 1)
         {
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
         }
         else 
         {
+            Debug.Log(collider.Length);
+            Debug.Log(collider[2].name);
             SpawnEnemy();
         }
     }
