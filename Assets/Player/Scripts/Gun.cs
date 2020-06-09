@@ -32,16 +32,17 @@ public class Gun : MonoBehaviour
         
         Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
         RaycastHit hitInfo;
-        audioSource.PlayOneShot(shot, 0.6f);
+        audioSource.PlayOneShot(shot, 0.3f);
 
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+        Debug.DrawRay(ray.origin, ray.direction * 200, Color.red, 2f);
 
 
-        if(Physics.Raycast(ray, out hitInfo, 100))
+        if(Physics.Raycast(ray, out hitInfo, 200))
         {
-            var health = hitInfo.collider.GetComponent<SnakeHealth>();
+            var health = hitInfo.collider.GetComponentInParent<SnakeHealth>();
             if (health != null)
             {
+                Debug.Log("Acertou");
                 health.TakeDamage(damage);
             }
         }
