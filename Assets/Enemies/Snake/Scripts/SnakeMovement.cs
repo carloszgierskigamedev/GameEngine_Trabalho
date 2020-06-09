@@ -7,9 +7,11 @@ public class SnakeMovement : MonoBehaviour
     private SnakeAggro aggroDetection; 
     private bool isAggroed;
     private Transform target;
+    private AudioSource audioSource;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         aggroDetection = GetComponentInChildren<SnakeAggro>();
         aggroDetection.OnAggro += AggroDetection_OnAggro;
@@ -20,6 +22,11 @@ public class SnakeMovement : MonoBehaviour
         if(isAggroed)
         {
             navMeshAgent.SetDestination(target.position);
+        }
+        
+        if(navMeshAgent.velocity.magnitude > 2f && !audioSource.isPlaying)
+        {
+            audioSource.Play();
         }
     }
 
