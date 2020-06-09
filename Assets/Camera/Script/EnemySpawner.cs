@@ -7,8 +7,8 @@ using UnityEngine.AI;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private float spawnStart = 0f;
-    [SerializeField] private int waveOneQuantity = 6;
+    [SerializeField] private float spawnStart = 3f;
+    [SerializeField] private int waveOneQuantity = 5;
     [SerializeField] private int waveTwoQuantity = 10;
     [SerializeField] private int waveThreeQuantity = 15;
     [SerializeField] private int waveFourQuantity = 20;
@@ -70,7 +70,6 @@ public class EnemySpawner : MonoBehaviour
         else 
         {
             Debug.Log(collider.Length);
-            Debug.Log(collider[2].name);
             SpawnEnemy();
         }
     }
@@ -78,14 +77,14 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator Spawn()
     {
 
-        yield return new WaitForSeconds(spawnStart);
+        yield return new WaitForSeconds(spawnStart + Random.Range(-.5f, .5f));
 
         SpawnEnemy();
     }
 
     private void WaveStarter(int enemyQuantity)
     {
-        for(int i = 0; i <= enemyQuantity; i++)
+        for(int i = 0; i < enemyQuantity; i++)
         {
             StartCoroutine(Spawn());
         }
