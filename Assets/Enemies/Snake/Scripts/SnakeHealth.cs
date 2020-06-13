@@ -4,12 +4,13 @@ public class SnakeHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 4;
     private int currentHealth;
-    static private int s_Killed = 0;
-    public int Killed { get { return s_Killed; } set { s_Killed = value; }}
+    static private int s_Alive = 0;
+    public int Alive { get { return s_Alive; } set { s_Alive = value; }}
     
     void Awake()
     {
         currentHealth = maxHealth;
+        s_Alive++;
     }
 
     void Update()
@@ -23,14 +24,14 @@ public class SnakeHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            s_Killed++;
-            Debug.Log("Matou: " + s_Killed);
+            s_Alive--;
+            Debug.Log("Matou: " + s_Alive);
             Die();
         }
     }
 
     private void Die()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

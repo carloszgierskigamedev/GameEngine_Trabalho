@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
@@ -7,15 +10,26 @@ public class Gun : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip shot;
     private float timer;
+    private int maxAmmo = 8;
+    private int currentAmmo;
+    [SerializeField] private float reloadTime = 1.5f;
+    private bool isRealoding = false;
+    [SerializeField] private TextMeshProUGUI currentAmmoText;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>(); 
+        currentAmmo = maxAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(isRealoding)
+        { 
+            return;
+        }
+
         timer += Time.deltaTime;
         if (timer >= fireRate)
         {
@@ -25,6 +39,24 @@ public class Gun : MonoBehaviour
                 FireGun();
             }
         }
+
+        if(currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+        }
+        
+        currentAmmoText.text = currentAmmo.ToString() + " / ∞";
+    }
+
+    private IEnumerator Reload()
+    {
+        isRealoding = true;
+        Debug.Log("Reloading...");
+
+        yield return new WaitForSeconds(reloadTime);
+        
+        isRealoding = false;
+        currentAmmo = maxAmmo;
     }
 
     private void FireGun()
@@ -33,6 +65,8 @@ public class Gun : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
         RaycastHit hitInfo;
         audioSource.PlayOneShot(shot, 0.3f);
+        
+        currentAmmo--;
 
         Debug.DrawRay(ray.origin, ray.direction * 200, Color.red, 2f);
 

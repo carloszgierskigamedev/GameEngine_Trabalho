@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class SnakeAttack : MonoBehaviour
 {
-    [SerializeField] private float attackDamage = 1;
+    [SerializeField] private float attackDamage = 10f;
     private NavMeshAgent navMeshAgent;
     PlayerHealth playerHealth;
     Rigidbody rigidBody;

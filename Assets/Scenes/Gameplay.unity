@@ -30444,7 +30444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardMoveSpeed: 14
-  backwardMoveSpeed: 7
+  backwardMoveSpeed: 8
   turnSpeed: 70
   footstepsAudio:
   - {fileID: 8300000, guid: 9d0970933a4de77448ecb0abd710c6d8, type: 3}
@@ -30491,6 +30491,8 @@ MonoBehaviour:
   fireRate: 0.8
   damage: 1
   shot: {fileID: 8300000, guid: ca9ec13e42465fb48aea42ea5a1be44c, type: 3}
+  reloadTime: 1.5
+  currentAmmoText: {fileID: 948974496}
 --- !u!114 &609582497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30503,9 +30505,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fedeaf5baf994240b990908e6200afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealthPoints: 5
+  totalHealthPoints: 100
   stopTime: 1
   impulseForce: 2
+  healthText: {fileID: 703814897}
 --- !u!82 &609582498
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34956,7 +34959,7 @@ GameObject:
   - component: {fileID: 703814898}
   - component: {fileID: 703814897}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35211,7 +35214,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.11780001, g: 0.16542663, b: 0.475, a: 1}
   m_Intensity: 0.6
   m_Range: 10
   m_SpotAngle: 30
@@ -37546,6 +37549,61 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0bde43a3da318640ad9d8222ec10d96, type: 3}
+--- !u!1 &749727316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749727318}
+  - component: {fileID: 749727317}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &749727317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749727316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fca3b2bd9e541143813e5772fba183f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 1358575341062399554, guid: 26728715c6f836245a20717438624ed3,
+    type: 3}
+  spawnStart: 3
+  waveOneQuantity: 5
+  waveTwoQuantity: 10
+  waveThreeQuantity: 15
+  waveFourQuantity: 20
+  waveFiveQuantity: 25
+  waveNumber: {fileID: 1593886559}
+  spawnBlockedLayers:
+    serializedVersion: 2
+    m_Bits: 279
+--- !u!4 &749727318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749727316}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 87.5, y: 41.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &750311507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46741,7 +46799,6 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
-  - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   - component: {fileID: 963194233}
   - component: {fileID: 963194232}
@@ -46852,26 +46909,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &963194230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fca3b2bd9e541143813e5772fba183f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1358575341062399554, guid: 26728715c6f836245a20717438624ed3,
-    type: 3}
-  spawnStart: 1
-  waveOneQuantity: 5
-  waveTwoQuantity: 10
-  waveThreeQuantity: 15
-  waveFourQuantity: 20
-  waveFiveQuantity: 25
 --- !u!45 &963194231
 Skybox:
   m_ObjectHideFlags: 0

@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
 
 
-    [SerializeField] private float totalHealthPoints = 10;
+    [SerializeField] private float totalHealthPoints = 100f;
     [SerializeField] private float stopTime = 0;
     [SerializeField] private float impulseForce = 0;
+    [SerializeField] private TextMeshProUGUI healthText;
     private float currentHealthPoints;
     Rigidbody rigidBody;
     PlayerMovement playerMovement;
@@ -30,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-
+        healthText.text = currentHealthPoints.ToString();
     }
 
     public void DealDamage(float attackDamage, Vector3 enemyPosition)
@@ -40,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealthPoints <= 0) 
         {
+            healthText.text = "0";
             Destroy(this.gameObject);
         }
 
