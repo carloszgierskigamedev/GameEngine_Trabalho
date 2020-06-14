@@ -30490,9 +30490,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 0.8
   damage: 1
-  shot: {fileID: 8300000, guid: ca9ec13e42465fb48aea42ea5a1be44c, type: 3}
+  shotSfx: {fileID: 8300000, guid: ca9ec13e42465fb48aea42ea5a1be44c, type: 3}
+  reloadSfx: {fileID: 8300000, guid: fdf3009729fe56c4d81fad544e17fef8, type: 3}
   reloadTime: 1.5
   currentAmmoText: {fileID: 948974496}
+  shootableLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &609582497
 MonoBehaviour:
   m_ObjectHideFlags: 0
