@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
         else if (wave == 5)
         {
             Debug.Log("?");
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Victory");
         }
         wave++;
     }
@@ -80,9 +80,9 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log("Maior que Dez");
             return;
         }
-        spawnPointX = Random.Range(-323, 301);
+        spawnPointX = Random.Range(-170, 170);
         spawnPointY = -54f;
-        spawnPointZ = Random.Range(945, -271);
+        spawnPointZ = Random.Range(500, -170);
         spawnPosition = new Vector3(spawnPointX, spawnPointY, spawnPointZ);
         collider = Physics.OverlapSphere(spawnPosition, 2f, spawnBlockedLayers);
         

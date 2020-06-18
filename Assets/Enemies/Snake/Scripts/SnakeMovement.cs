@@ -8,9 +8,11 @@ public class SnakeMovement : MonoBehaviour
     private bool isAggroed;
     private Transform target;
     private AudioSource audioSource;
+    private Animator animator;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         aggroDetection = GetComponentInChildren<SnakeAggro>();
@@ -21,6 +23,7 @@ public class SnakeMovement : MonoBehaviour
     {
         if(isAggroed)
         {
+            float speed = navMeshAgent.velocity.magnitude;
             navMeshAgent.SetDestination(target.position);
         }
         

@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour
         
         Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
         RaycastHit hitInfo;
-        audioSource.PlayOneShot(shotSfx, 0.3f);
+        audioSource.PlayOneShot(shotSfx, 0.2f);
         
         currentAmmo--;
 

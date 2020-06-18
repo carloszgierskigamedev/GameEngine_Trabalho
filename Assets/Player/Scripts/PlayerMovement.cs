@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float turnSpeed = 70f;
     [SerializeField] private AudioClip[] footstepsAudio;
     private AudioSource audioSource;
+    private Animator animator;
     private Vector3 lastPosition;
     private float totalMoved;
 
@@ -16,9 +17,9 @@ public class PlayerMovement : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
-
-        //animator = GetComponentInChildren<Animator>();
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -29,14 +30,17 @@ public class PlayerMovement : MonoBehaviour
         var verticalMovement = Input.GetAxisRaw("Vertical");
         var movement = new Vector3(horizontalMovement, 0, verticalMovement);
         var movementNormalized = Vector3.Normalize(movement);
-        //characterController.SimpleMove(movementNormalized * Time.deltaTime * moveSpeed);
-
-        //animator.SetFloat("Speed", vertical);
 
         transform.Rotate(Vector3.up, horizontalCamera * turnSpeed * Time.deltaTime);
 
+        if(verticalMovement == 0)
+        {
+            animator.SetBool("Walking", false);
+        }
+
         if(verticalMovement != 0 || horizontalMovement != 0)
         {
+            animator.SetBool("Walking", true);
             float moveSpeedToUse = (verticalMovement > 0) ? forwardMoveSpeed : backwardMoveSpeed;
             characterController.SimpleMove((transform.forward * moveSpeedToUse * movementNormalized.z) + (transform.right * backwardMoveSpeed * movementNormalized.x));
         }
